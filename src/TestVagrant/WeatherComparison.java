@@ -4,7 +4,8 @@ import java.io.IOException;
 
 public class WeatherComparison {
     public static void main(String[] args) throws IOException {
-        ReusableComponent.ReuseFunction.TestCity("https://www.ndtv.com/","New Delhi");
-        //ReusableComponent.ReuseFunction.TestCity("https://www.ndtv.com/","New Delhi");
+        String ndtvPath = "https://www.ndtv.com/";
+        ReusableComponent.ReuseFunction.TestCity(ndtvPath,"New Delhi");
+        ReusableComponent.ReuseFunction.TestCity(ndtvPath,"Lucknow");
     }
 }
