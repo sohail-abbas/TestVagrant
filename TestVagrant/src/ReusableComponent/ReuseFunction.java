@@ -2,17 +2,20 @@ package ReusableComponent;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 
 
 public class ReuseFunction {
-
     public static String MyGETRequest(String City) throws IOException {
         String strUrl;
         String oWTemp = null;
@@ -52,6 +55,72 @@ public class ReuseFunction {
             System.out.println("GET NOT WORKED");
         }
         return oWTemp;
+    }
+    public static String BrowseWeather(String path, String City){
+        //Define Web browser and open through chrome driver.
+        System.setProperty("webdriver.chrome.driver","C:\\Users\\mohabbas\\Desktop\\Resumes\\Scripts & Softwares\\Automation\\chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+
+        driver.manage().timeouts().pageLoadTimeout(145, TimeUnit.SECONDS);
+        driver.get(path);
+        driver.manage().timeouts().pageLoadTimeout(145, TimeUnit.SECONDS);
+        driver.manage().timeouts().setScriptTimeout(145, TimeUnit.SECONDS);
+
+        driver.findElement(By.id("h_sub_menu")).click();
+        driver.findElement(By.linkText("WEATHER")).click();
+        driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(145, TimeUnit.SECONDS);
+
+        driver.findElement(By.id("searchBox")).sendKeys("Srinagar");
+        driver.findElement(By.id("Srinagar")).click();
+        driver.findElement(By.id("searchBox")).clear();
+//        driver.findElement(By.id("searchBox")).sendKeys("New Delhi");
+//        driver.findElement(By.id("Srinagar")).click();
+//        driver.findElement(By.id("searchBox")).clear();
+        driver.findElement(By.id("searchBox")).sendKeys("Lucknow");
+        driver.findElement(By.id("Lucknow")).click();
+        driver.findElement(By.id("searchBox")).clear();
+        driver.findElement(By.id("searchBox")).sendKeys("Patna");
+        driver.findElement(By.id("Patna")).click();
+        driver.findElement(By.id("searchBox")).clear();
+        driver.findElement(By.id("searchBox")).sendKeys("Kolkata");
+        driver.findElement(By.id("Kolkata")).click();
+        driver.findElement(By.id("searchBox")).clear();
+        driver.findElement(By.id("searchBox")).sendKeys("Bhopal");
+        driver.findElement(By.id("Bhopal")).click();
+        driver.findElement(By.id("searchBox")).clear();
+        driver.findElement(By.id("searchBox")).sendKeys("Hyderabad");
+        driver.findElement(By.id("Hyderabad")).click();
+        driver.findElement(By.id("searchBox")).clear();
+        driver.findElement(By.id("searchBox")).sendKeys("Mumbai");
+        driver.findElement(By.id("Mumbai")).click();
+        driver.findElement(By.id("searchBox")).clear();
+        driver.findElement(By.id("searchBox")).sendKeys("Visakhapatnam");
+        driver.findElement(By.id("Visakhapatnam")).click();
+        driver.findElement(By.id("searchBox")).clear();
+        driver.findElement(By.id("searchBox")).sendKeys("Bengaluru");
+        driver.findElement(By.id("Bengaluru")).click();
+        driver.findElement(By.id("searchBox")).clear();
+        driver.findElement(By.id("searchBox")).sendKeys("Chennai");
+        driver.findElement(By.id("Chennai")).click();
+        driver.findElement(By.id("searchBox")).clear();
+
+        driver.manage().timeouts().pageLoadTimeout(145, TimeUnit.SECONDS);
+        driver.findElement(By.id("searchBox")).sendKeys(City);
+
+        if ( !driver.findElement(By.id(City)).isSelected() )
+        {
+            driver.findElement(By.id(City)).click();
+        }
+
+        driver.manage().timeouts().pageLoadTimeout(145, TimeUnit.SECONDS);
+        driver.findElement(By.className("cityText")).click();
+        driver.manage().timeouts().pageLoadTimeout(145, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
+        String getDetailText;
+        getDetailText = driver.findElement(By.className("leaflet-popup-content")).getText();
+        driver.quit();
+        return getDetailText;
     }
 
 }
